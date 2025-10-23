@@ -1,0 +1,31 @@
+patient_id,trial_site,enrollment_date,age,adverse_event,completed_trial
+P001,Boston,2024-01-10,32,false,true
+P002,Boston,2024-01-15,35,false,true
+P003,Boston,2024-01-20,38,false,true
+P004,Boston,2024-01-25,41,false,true
+P005,Boston,2024-02-01,29,false,true
+P006,Boston,2024-02-05,45,false,true
+P007,Chicago,2024-01-15,48,true,false
+P008,Chicago,2024-01-22,52,true,false
+P009,Chicago,2024-01-28,45,true,true
+P010,Chicago,2024-02-05,55,true,false
+P011,Chicago,2024-02-12,50,true,false
+P012,Chicago,2024-02-20,47,true,true
+P013,Los Angeles,2024-02-01,35,false,true
+P014,Los Angeles,2024-02-08,38,false,true
+P015,Los Angeles,2024-02-15,32,false,true
+P016,Los Angeles,2024-02-22,41,false,true
+P017,Los Angeles,2024-03-01,36,false,true
+P018,Los Angeles,2024-03-08,39,false,true
+P019,Miami,2024-02-10,58,true,false
+P020,Miami,2024-02-18,62,true,false
+P021,Miami,2024-02-25,55,true,false
+P022,Miami,2024-03-05,60,true,false
+P023,Miami,2024-03-12,56,true,false
+P024,Miami,2024-03-20,59,true,false
+P025,New York,2024-02-20,44,false,true
+P026,New York,2024-02-27,47,false,true
+P027,New York,2024-03-05,40,true,false
+P028,New York,2024-03-12,50,false,true
+P029,New York,2024-03-20,43,true,true
+P030,New York,2024-03-28,49,false,true
