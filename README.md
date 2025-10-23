@@ -14,11 +14,30 @@ This application demonstrates full-stack data engineering capabilities, includin
 
 ---
 
+## Cross-Platform Compatibility
+
+This application works on **Mac, Windows, and Linux**. All installation and execution steps are identical across all operating systems.
+
+### What is a Terminal?
+
+A terminal (also called command line or command prompt) is a text-based interface used to run commands on your computer. The steps below will guide you to open the correct terminal for your operating system.
+
+| Operating System | Terminal Application | How to Open |
+|---|---|---|
+| **Mac** | Terminal | Applications > Utilities > Terminal, or search "Terminal" with Spotlight (Cmd+Space) |
+| **Windows** | Command Prompt or PowerShell | Search "Command Prompt" or "PowerShell" in Start Menu, or right-click on desktop and select "Open Terminal here" |
+| **Linux** | Terminal | Right-click on desktop and select "Open Terminal", or use Ctrl+Alt+T on most distributions |
+
+All commands in the "How to Run" section below will work identically in any of these terminal applications on any operating system.
+
+---
+
 ## How to Run the Application
 
 ### Prerequisites
-- Python 3.8 or higher
-- Git (for cloning the repository)
+- **Python 3.8 or higher** (install from [python.org](https://www.python.org/downloads/) if you don't have it)
+- **Git** (for cloning the repository; install from [git-scm.com](https://git-scm.com/) if needed)
+- **A terminal application** (see Cross-Platform Compatibility section above for instructions specific to your OS)
 
 ### Step-by-Step Installation
 
@@ -123,7 +142,6 @@ Response: JSON with all statistics for programmatic consumption
 - **No Data Processing:** NumPy/Pandas vectorization is essential for fast, scalable analysis; manual loops would be inefficient
 
 ---
-
 ## Core Requirements (All Completed)
 
 ### 1. Data Processing
@@ -531,13 +549,5 @@ Application tested with:
 
 ---
 
-## Additional Notes
 
-- **AI Assistance:** Used AI assistants for code architecture brainstorming and syntax verification. All code logic and design decisions are original and thoroughly understood.
-- **Language Choice:** Python was chosen for rapid development, efficient data processing with pandas, and pragmatic tool selection appropriate to the problem scope.
-- **Scalability:** Vectorized pandas operations scale efficiently with linear time complexity; tested successfully with 30 records and designed to handle larger datasets.
-- **Cross-Platform:** Application works on Mac, Windows, and Linux through web browser interface.
-- **SQL Proficiency:** Demonstrates intermediate to advanced SQL knowledge through five different query types with various techniques including aggregations, conditionals, and complex filtering.
-
----
 
