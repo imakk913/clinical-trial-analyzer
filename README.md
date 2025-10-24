@@ -1,4 +1,5 @@
 # Clinical Trial Data Analyzer - NNIT
+## Ishan Makkar
 
 A comprehensive Python application that processes clinical trial patient data and generates detailed statistical analysis with interactive visualizations, REST API integration, and advanced SQL-based database queries.
 
@@ -87,8 +88,9 @@ Output includes:
 - SQL Query Demonstrations (5 different queries with results)
 - Statistics saved to trial_results.json
 - Data persisted in trial_data.db SQLite database
+- Data validation log (data_validation.log) with detailed error tracking
 
-#### Mode 2: Web Dashboard (Interactive Interface)
+#### Mode 2: Web Dashboard
 ```bash
 python clinical_trial_analyzer.py web
 ```
@@ -99,11 +101,14 @@ Features:
 - Upload CSV file for analysis
 - View summary statistics (4 stat cards: Total Patients, Average Age, Completion Rate, Adverse Event Rate)
 - Site breakdown table
-- 4 interactive Plotly charts:
+- Completion rate comparison by adverse event status
+- 4 Plotly charts:
   - Patient Enrollment Over Time (trend analysis)
-  - Completion by Trial Site (site performance comparison)
-  - Age Distribution (demographic visualization)
-  - Adverse Event Distribution (safety profile)
+  - Completion by Trial Site (side-by-side comparison)
+  - Age Distribution (demographic visualization with values on bars)
+  - Adverse Event Distribution (safety profile - percentage display)
+- All 5 SQL query results with detailed explanations
+- High-risk patient identification table
 - Real-time data processing
 - Error handling with user-friendly messages
 
@@ -153,9 +158,9 @@ Response: JSON with all statistics for programmatic consumption
   - Non-numeric ages flagged and skipped
   - Age range validation (0-150 years)
   - Missing required fields detected
-  - Invalid records logged with specific error messages
+  - Invalid records logged with specific error messages to data_validation.log
   - Processing continues despite errors (non-fatal error handling)
-- **Data Quality Reporting:** Valid and invalid record counts provided
+- **Data Quality Reporting:** Valid and invalid record counts provided with detailed error reasons
 
 ### 2. Generate Summary Statistics
 
@@ -175,10 +180,11 @@ All 6 required metrics calculated and output:
 Multiple formats provided:
 
 - **Console Report:** Formatted text output with advanced analysis and SQL demonstrations
-- **JSON File:** Machine-readable statistics in trial_results.json
-- **Web Dashboard:** Interactive HTML interface with charts and statistics
+- **JSON File:** Machine-readable statistics in trial_results.json (includes invalid record details)
+- **Web Dashboard:** Interactive HTML interface with charts, statistics, and SQL query results
 - **REST API:** JSON endpoint for programmatic system integration
 - **SQLite Database:** Persistent storage with SQL query capability
+- **Validation Log:** Detailed error tracking in data_validation.log
 
 ---
 
@@ -194,6 +200,8 @@ Features:
 - 4 Summary Statistics cards (Total Patients, Average Age, Completion Rate, Adverse Event Rate)
 - Patients per site breakdown table
 - Completion rate comparison (with vs without adverse events)
+- All 5 SQL queries displayed with explanations and formatted tables
+- High-risk patient identification with detailed table
 - Responsive HTML design with gradient styling
 - Error handling with user-friendly messages
 - Mobile-responsive layout
@@ -207,116 +215,88 @@ Status: Fully Implemented with Comprehensive Documentation
 Endpoints:
 - **POST /api/analyze** - Upload CSV file and receive JSON statistics
 ```bash
-  curl -F "file=@trial_data.csv" http://localhost:5000/api/analyze
+curl -F "file=@trial_data.csv" http://localhost:5000/api/analyze
 ```
-  Returns: Complete statistics object as JSON
-  
-- **GET /api/health** - Health check endpoint
-```bash
-  curl http://localhost:5000/api/health
-```
-  Returns: {"status": "ok"}
 
-Features:
-- Error handling with descriptive HTTP status codes
-- JSON request/response format for system integration
-- File upload validation
-- Usage documentation in code comments
-- Integration-ready for external applications
+- **GET /api/health** - Health check endpoint for monitoring
+```bash
+curl http://localhost:5000/api/health
+```
+
+Returns: JSON with all statistics including data quality metrics
 
 ### Option C: Data Visualization
 
-Status: Fully Implemented with 4 Interactive Charts
+Status: 4 Professional-Quality Interactive Charts
 
-Charts Included:
+Charts:
+1. **Patient Enrollment Timeline** - Line chart showing enrollment trends over time
+2. **Trial Completion Status by Site** - Side-by-side bar comparison showing completed vs incomplete patients per site
+3. **Patient Age Distribution** - Histogram with age groups, bars separated by lines, values displayed on bars
+4. **Adverse Event Distribution** - Pie chart showing percentage breakdown (percentages only, horizontal text)
 
-1. **Patient Enrollment Over Time** (Line Chart)
-   - Shows enrollment trends across the study period
-   - X-axis: Enrollment dates (Jan-Mar 2024)
-   - Y-axis: Daily new enrollments
-   - Useful for identifying recruitment patterns
-
-2. **Completion by Trial Site** (Stacked Bar Chart)
-   - Visualizes completion rates per site
-   - Blue segments: Completed trials
-   - Red segments: Incomplete trials
-   - Shows which sites perform best (Boston/LA: 100%, Miami: 0%)
-
-3. **Age Distribution** (Histogram)
-   - Shows patient age demographics
-   - Age range: 29-62 years
-   - Identifies demographic clustering patterns
-   - 15 bins for granular distribution
-
-4. **Adverse Event Distribution** (Pie Chart)
-   - Shows proportion of patients with/without adverse events
-   - Percentage breakdown displayed (53.3% no events, 46.7% adverse)
-   - Quick visual summary of safety profile
-
-All Charts:
-- Interactive (zoom, pan, hover for details)
+Features:
+- Interactive zoom, pan, and hover
+- Professional color schemes
+- Clear labels and legends
 - Embedded in web dashboard
-- Powered by Plotly for professional rendering
-- Responsive and mobile-friendly
-- Exportable as standalone HTML
+- High-resolution rendering
 
-### Option D: Advanced Analysis
+Technology: Plotly for publication-quality, interactive visualizations
 
-Status: Fully Implemented and Displayed in Console Output
+### Option D: Advanced Analysis and Insights
 
-Analyses Performed:
+Status: Comprehensive Pattern Recognition and Trend Analysis
 
-**Site Performance Ranking:**
-- Completion rates by site (ranked highest to lowest)
+Analysis Includes:
+
+**Site Performance Analysis:**
+- Completion rates by site
 - Adverse event rates by site
-- Average age per site
-- Identifies best performing site (Boston: 100% completion)
-- Identifies worst performing site (Miami: 0% completion)
+- Average age demographics per site
+- Best and worst performing site identification
 
 **Age Group Analysis:**
-- Patients bucketed by age ranges (<30, 30-39, 40-49, 50-59, 60+)
-- Completion rates per age group
-- Adverse event rates per age group
-- Sample sizes for statistical validity
-- Shows age-related trends (younger patients complete at higher rates)
+- Patients bucketed into age ranges (<30, 30-39, 40-49, 50-59, 60+)
+- Completion rates by age group
+- Adverse event patterns by age
+- Sample size per group
 
 **Key Insights:**
-- Adverse event impact calculation: Shows how much adverse events reduce completion likelihood
-- Age pattern analysis: Compares average age of completed vs incomplete patients
-- Site comparison: Identifies outlier performance
+- Adverse event impact quantification (% difference in completion rates)
+- Age pattern analysis (average age of completers vs non-completers)
+- Correlation analysis (age vs adverse events, age vs completion, adverse events vs completion)
 
-Output: Displayed in formatted console output when running: python clinical_trial_analyzer.py
+All analysis displayed in formatted console output and integrated into web dashboard.
 
-### Option E: Database Integration with SQL Queries
+### Option E: Database Integration (SQLite)
 
-Status: Fully Implemented with 5 SQL Query Demonstrations
+Status: Fully Implemented with 5 Advanced SQL Query Demonstrations
 
-SQLite Database:
-- Auto-created from CSV data (trial_data.db)
-- All patient records persisted in normalized schema
-- Full SQL query capability for advanced analysis
-- Production-ready database file
-
-Five SQL Query Demonstrations (all executed and results displayed):
+Database:
+- All valid patient data loaded into SQLite (trial_data.db)
+- Persistent storage for ad-hoc analysis
+- Complex queries demonstrating SQL proficiency
 
 **Query 1: Detailed Patient Report by Site**
 ```sql
-SELECT trial_site, COUNT(*) as total_patients, 
+SELECT trial_site, COUNT(*) as total_patients,
        SUM(CASE WHEN completed_trial = 1 THEN 1 ELSE 0 END) as completed,
        SUM(CASE WHEN completed_trial = 0 THEN 1 ELSE 0 END) as incomplete,
        SUM(CASE WHEN adverse_event = 1 THEN 1 ELSE 0 END) as with_adverse,
        SUM(CASE WHEN adverse_event = 0 THEN 1 ELSE 0 END) as without_adverse
 FROM patients GROUP BY trial_site ORDER BY trial_site
 ```
-Demonstrates: GROUP BY, CASE statements, aggregate functions
+Demonstrates: GROUP BY, SUM with CASE statements, multiple aggregations
 
-**Query 2: Enrollment Timeline (Chronological)**
+**Query 2: Patient Enrollment Summary by Site**
 ```sql
-SELECT enrollment_date, COUNT(*) as enrollments, trial_site
-FROM patients GROUP BY enrollment_date, trial_site
-ORDER BY enrollment_date LIMIT 10
+SELECT trial_site, COUNT(*) as total_enrolled,
+       MIN(enrollment_date) as first_enrollment,
+       MAX(enrollment_date) as last_enrollment
+FROM patients GROUP BY trial_site ORDER BY total_enrolled DESC
 ```
-Demonstrates: Date handling, multiple GROUP BY columns, ORDER BY
+Demonstrates: MIN/MAX date functions, enrollment timeline tracking
 
 **Query 3: High-Risk Patients (Adverse Events + Incomplete)**
 ```sql
@@ -325,9 +305,9 @@ FROM patients
 WHERE adverse_event = 1 AND completed_trial = 0
 ORDER BY age DESC
 ```
-Demonstrates: WHERE clause, multiple conditions, ORDER BY DESC
+Demonstrates: WHERE with multiple conditions, ORDER BY DESC
 
-**Query 4: Site Performance Ranking with Case Statements**
+**Query 4: Site Performance Ranking with Letter Grades**
 ```sql
 SELECT trial_site, COUNT(*) as total, SUM(completed_trial) as completed,
        ROUND(100.0 * SUM(completed_trial) / COUNT(*), 2) as completion_pct,
@@ -339,7 +319,7 @@ SELECT trial_site, COUNT(*) as total, SUM(completed_trial) as completed,
        END as grade
 FROM patients GROUP BY trial_site ORDER BY completion_pct DESC
 ```
-Demonstrates: Complex CASE statements, conditional logic, rounding, ranking
+Demonstrates: CASE statements with multiple conditions, computed grading system
 
 **Query 5: Statistical Summary of All Patients**
 ```sql
@@ -371,7 +351,11 @@ All queries executed and results displayed in formatted tables when running: pyt
 
 File: trial_data.csv
 
-- **Records:** 30 patient records (exceeds 20-30 requirement)
+- **Records:** 32 total records (30 valid + 2 invalid for validation testing)
+- **Valid Records:** 30 patient records (exceeds 20-30 requirement)
+- **Invalid Records:** 2 intentionally invalid records to demonstrate error handling:
+  - P031: Invalid date format and age >150 (shows date and age validation)
+  - P032: Missing trial site (shows required field validation)
 - **Trial Sites:** 5 locations (exceeds 3-5 requirement)
   - Boston: 6 patients (100% completion, 0% adverse events)
   - Chicago: 6 patients (33% completion, 100% adverse events)
@@ -379,10 +363,54 @@ File: trial_data.csv
   - Miami: 6 patients (0% completion, 100% adverse events)
   - New York: 6 patients (80% completion, 50% adverse events)
 - **Date Range:** January 10, 2024 - March 28, 2024
-- **Age Range:** 29-62 years
+- **Age Range:** 29-62 years (valid records only)
 - **Data Characteristics:** Strong correlation between adverse events and completion rates showing realistic trial patterns
 
-Data is synthetically generated but follows realistic clinical trial distribution patterns.
+Data is synthetically generated but follows realistic clinical trial distribution patterns with intentional invalid records to demonstrate robust error handling.
+
+---
+
+## Data Validation & Error Logging
+
+### Validation Log File
+The application automatically creates `data_validation.log` which records:
+- Validation session timestamps
+- Number of records loaded
+- Invalid record details with specific error reasons
+- Final validation results (valid vs invalid count)
+- Clean, easy-to-read format with symbols (✓, ✗, ⚠)
+
+### Viewing the Log
+```bash
+cat data_validation.log
+```
+
+### Log Format Example
+```
+INFO     | 
+INFO     | ======================================================================
+INFO     | VALIDATION SESSION: 2025-10-23 22:45:44
+INFO     | ======================================================================
+INFO     | File: trial_data.csv
+INFO     | ✓ Loaded 32 records
+INFO     | Validating data types...
+WARNING  |   ⚠ 1 record(s) with invalid dates
+WARNING  | 
+WARNING  | INVALID RECORDS FOUND:
+WARNING  | ----------------------------------------------------------------------
+WARNING  |   Patient P031: Invalid enrollment date, Invalid age: 180
+WARNING  |   Patient P032: Missing trial site
+WARNING  | ----------------------------------------------------------------------
+ERROR    | Total: 2 invalid record(s) excluded from analysis
+INFO     | 
+INFO     | RESULT:
+INFO     |   ✓ Valid: 30 records
+INFO     |   ✗ Invalid: 2 records
+INFO     | ======================================================================
+INFO     | 
+```
+
+The log file maintains a history of all validation sessions, with clear separators between each run.
 
 ---
 
@@ -405,7 +433,7 @@ The application displays:
    - Key Insights highlighting adverse event impact and outlier sites
 3. **SQL Query Demonstrations** showing:
    - Detailed Patient Report by Site
-   - Enrollment Timeline
+   - Enrollment Summary by Site
    - High-Risk Patients identification
    - Site Performance Ranking with letter grades
    - Statistical Summary
@@ -428,7 +456,32 @@ The application displays:
   "completion_rate_without_adverse_percent": 100.0,
   "data_quality": {
     "valid_records": 30,
-    "invalid_records": 0
+    "invalid_records": 2,
+    "invalid_record_details": [
+      {
+        "patient_id": "P031",
+        "trial_site": "Chicago",
+        "enrollment_date": null,
+        "age": 180,
+        "adverse_event": false,
+        "completed_trial": true,
+        "validation_errors": [
+          "Invalid enrollment date",
+          "Invalid age: 180"
+        ]
+      },
+      {
+        "patient_id": "P032",
+        "trial_site": null,
+        "enrollment_date": "2024-04-01 00:00:00",
+        "age": 45,
+        "adverse_event": true,
+        "completed_trial": false,
+        "validation_errors": [
+          "Missing trial site"
+        ]
+      }
+    ]
   }
 }
 ```
@@ -446,14 +499,15 @@ clinical-trial-analyzer/
 │   ├── Advanced analysis methods
 │   ├── SQL query demonstrations
 │   └── main() console execution
-├── trial_data.csv                (30 records - sample data)
+├── trial_data.csv                (32 records - 30 valid + 2 invalid)
 ├── requirements.txt              (4 dependencies)
 ├── README.md                     (this file)
 ├── .gitignore                    (Git configuration)
 ├── screenshots/                  (folder with visual documentation)
 ├── venv/                         (virtual environment - not committed)
 ├── trial_results.json            (output - generated after running)
-└── trial_data.db                 (SQLite database - generated after running)
+├── trial_data.db                 (SQLite database - generated after running)
+└── data_validation.log           (validation log - generated after running)
 ```
 
 ---
@@ -484,7 +538,7 @@ clinical-trial-analyzer/
 ### Non-Fatal Error Handling
 - **Reasoning:** Invalid records should not crash the application; processing should continue to maximize data extraction
 - **Benefit:** Maintains data quality while maximizing insights from valid records
-- **Implementation:** Invalid rows logged separately; valid rows processed normally; quality metrics reported
+- **Implementation:** Invalid rows logged separately to data_validation.log; valid rows processed normally; quality metrics reported
 
 ### SQL Query Demonstrations
 - **Reasoning:** Showcases database integration and SQL proficiency with practical examples
@@ -518,10 +572,12 @@ clinical-trial-analyzer/
 Application tested with:
 - Valid CSV files with all required fields
 - Various data ranges (ages 29-62, 5 trial sites, 30 records)
+- Invalid records (intentional errors for validation testing)
 - Edge cases (100% completion sites, 0% completion sites, 100% adverse events)
-- Error scenarios (invalid dates, non-numeric ages, missing fields)
+- Error scenarios (invalid dates, non-numeric ages, missing fields, out-of-range ages)
 - Multiple input methods (console, web upload, API)
 - SQL query execution with complex conditions
+- Cross-platform compatibility (Mac, Windows, Linux)
 
 ---
 
@@ -531,23 +587,8 @@ Application tested with:
 - **Organization:** Single class encapsulating all logic with well-defined methods
 - **Type Hints:** Methods include input/output type annotations
 - **Comments:** Docstrings on all methods; inline comments for complex logic
-- **Error Handling:** Comprehensive validation with specific error messages
+- **Error Handling:** Comprehensive validation with specific error messages logged to data_validation.log
 - **Best Practices:** PEP 8 compliant, DRY principle applied, no code duplication
 
 ---
-
-## Getting Started
-
-1. Clone this repository
-2. Follow "How to Run" section above
-3. Choose your execution mode:
-   - Console for quick analysis with advanced insights and SQL demonstrations
-   - Web for interactive exploration with visualizations
-   - API for programmatic system integration
-4. Review trial_results.json for statistics in JSON format
-5. Query trial_data.db for persistent data analysis
-
----
-
-
 

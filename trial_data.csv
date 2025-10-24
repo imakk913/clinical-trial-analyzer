@@ -29,3 +29,5 @@ P027,New York,2024-03-05,40,true,false
 P028,New York,2024-03-12,50,false,true
 P029,New York,2024-03-20,43,true,true
 P030,New York,2024-03-28,49,false,true
+P031,Chicago,INVALID_DATE,180,false,true
+P032,,2024-04-01,45,true,false
